@@ -20,5 +20,7 @@ from hood import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', views.register_user, name='registration'),
     path('', include('hood.urls'))
 ]
