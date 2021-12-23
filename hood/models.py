@@ -6,11 +6,47 @@ from cloudinary.models import CloudinaryField
 
 
 
+class Neighborhood(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    creator = models.ForeignKey(User)
+    date_created = models.DateTimeField(auto_now_add=True)
+    
+class Post(models.Model):
+    image = CloudinaryField('image', blank=True)
+    title = models.CharField(max_length=50)
+    content = models.TextField(max_length=500)
+    author = models.ForeignKey(User,related_name='posts', on_delete=models.CASCADE)
+    date_posted = models.DateTimeField(auto_now_add=True)
+    
+    
+    def __str__(self):
+        return self.title
+    
+    def save_post(self):
+        self.save()
+        
+    def delete_post(self):
+        self.delete()
+    
+        
+    @classmethod    
+    def get_posts(self):
+        posts = Post.objects.all()
+        return posts
+    
+    @classmethod    
+    def search_post(self, search_title):
+        posts= Post.objects.filter(title__icontains=search_title)
+        return posts
+     
+ 
+    
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500,blank=True)
     profile_pic = CloudinaryField('image')
-    neigborhood = models.CharField(max_length=100,blank=True)
+    neigborhood = models.ForeignKey(Neighborhood,blank=True)
     
     def __str__(self):
         return str(self.user)
@@ -23,10 +59,3 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
-
-
-class Neigborhood(models.Model):
-    name = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
-    creator = models.ForeignKey(User)
-    date_created = models.DateTimeField(auto_now_add=True)
