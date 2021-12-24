@@ -9,13 +9,36 @@ from cloudinary.models import CloudinaryField
 class Neighborhood(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User,null =True,on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+    
+    def save(self):
+        self.save()
+    
+    def delete(self):
+        self.delete()
+
+    def edit_name(self,name):
+        self.name = name
+        
+    @classmethod
+    def all_hoods(self):
+        hoods = Neighborhood.objects.all()    
+        return hoods
+    
+    @classmethod
+    def search_hood(self,search_name):
+        hoods = Neighborhood.objects.filter(location__icontains=search_name) 
+        return hoods
+    
     
 class Post(models.Model):
     image = CloudinaryField('image', blank=True)
     title = models.CharField(max_length=50)
-    content = models.TextField(max_length=500)
+    content = models.TextField( max_length=500)
     author = models.ForeignKey(User,related_name='posts', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
     
@@ -28,6 +51,10 @@ class Post(models.Model):
         
     def delete_post(self):
         self.delete()
+        
+    def edit_post(self,new_content):
+        self.content = new_content
+        self.save()
     
         
     @classmethod    
@@ -39,14 +66,48 @@ class Post(models.Model):
     def search_post(self, search_title):
         posts= Post.objects.filter(title__icontains=search_title)
         return posts
-     
+
+
+
+class Business(models.Model):
+    name = models.CharField(max_length=100)
+    type = models.CharField(max_length=100)
+    directions = models.CharField(max_length=100)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    contact = models.CharField(max_length=500)
+    verified = models.BooleanField(default=False)    
  
     
+    
+    def __str__(self):
+        return self.name
+    
+    def save(self):
+        self.save()
+    
+    def delete(self):
+        self.delete()
+
+    def edit_name(self,name):
+        self.name = name
+    
+    @classmethod
+    def business_type(self,key_word):
+        businesses = Business.objects.filter(type=key_word)
+        return businesses
+    
+    @classmethod
+    def search_business(self,key_word):
+        businesses = Business.objects.filter(name__icontains=key_word)
+        return businesses
+    
+        
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500,blank=True)
+    about = models.TextField(max_length=500,blank=True)
     profile_pic = CloudinaryField('image')
-    neigborhood = models.ForeignKey(Neighborhood,blank=True)
+    neigborhood = models.ForeignKey(Neighborhood,null=True,on_delete=models.SET_NULL)
     
     def __str__(self):
         return str(self.user)

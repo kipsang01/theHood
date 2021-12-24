@@ -4,7 +4,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate,login,logout
 from .forms import RegisterUserForm
 
-# Create your views here.
+
+
+# Landing page
+def index(request):
+    return render(request,'index.html')
+
+
+# Dashboard to show neighborhoods
+def dashboard(request):
+    return render(request,'dashboard.html')
+
+# Home posts and details
 def home(request):
     return render(request,'home.html')
 
