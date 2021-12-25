@@ -10,6 +10,7 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     creator = models.ForeignKey(User,null =True,on_delete=models.SET_NULL)
+    profile_pic = CloudinaryField('image', null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -107,7 +108,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField(max_length=500,blank=True)
     profile_pic = CloudinaryField('image')
-    neigborhood = models.ForeignKey(Neighborhood,null=True,on_delete=models.SET_NULL)
+    neigborhood = models.ForeignKey(Neighborhood,related_name='members',null=True,on_delete=models.SET_NULL)
     
     def __str__(self):
         return str(self.user)

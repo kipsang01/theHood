@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static%}
+ <div class="container-fluid m-0 p-0">
+     {% if hoods%}
+     <div class="displays">
+
+
+     </div>
+     {% else %}
+     <div class="no-hoods">
+        <p>There are no hoods at the moment</p>
+        <a href="{% url 'new-hood'%}"> create one</a>
+     </div>
+     {% endif%}
+ </div>
+{% endblock%}
