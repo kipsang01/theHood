@@ -16,8 +16,7 @@ class Neighborhood(models.Model):
     def __str__(self):
         return self.name
     
-    def save(self):
-        self.save()
+    
     
     def delete(self):
         self.delete()
@@ -34,12 +33,20 @@ class Neighborhood(models.Model):
     def search_hood(self,search_name):
         hoods = Neighborhood.objects.filter(location__icontains=search_name) 
         return hoods
+
+
+class HoodMember(models.Model):
+    member = models.ForeignKey(User,on_delete=models.CASCADE)
+    hood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
     
+    
+    def __str__(self):
+        return '{} in {}'.format(self.member, self.hood)
     
 class Post(models.Model):
     image = CloudinaryField('image', blank=True)
-    title = models.CharField(max_length=50)
     content = models.TextField( max_length=500)
+    hood = models.ForeignKey(Neighborhood,related_name='posts',on_delete=models.CASCADE)
     author = models.ForeignKey(User,related_name='posts', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
     
@@ -108,9 +115,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField(max_length=500,blank=True)
     profile_pic = CloudinaryField('image')
-    neigborhood = models.ForeignKey(Neighborhood,related_name='members',null=True,on_delete=models.SET_NULL)
     
-    def __str__(self):
+    
+    def __str__(self):  
         return str(self.user)
     
     @receiver(post_save, sender=User)

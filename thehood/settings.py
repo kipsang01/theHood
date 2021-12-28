@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +31,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+cloudinary.config( 
+    cloud_name = 'dscpb1dnd',
+    api_key = '322466197392728',
+    api_secret = 'y2nFHzeXBiwsXYTbeSdH9QJaz20'
+    )
 
 # Application definition
 

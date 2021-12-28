@@ -1,0 +1,20 @@
+                   List of relations
+ Schema |            Name            | Type  |  Owner  
+--------+----------------------------+-------+---------
+ public | auth_group                 | table | moringa
+ public | auth_group_permissions     | table | moringa
+ public | auth_permission            | table | moringa
+ public | auth_user                  | table | moringa
+ public | auth_user_groups           | table | moringa
+ public | auth_user_user_permissions | table | moringa
+ public | django_admin_log           | table | moringa
+ public | django_content_type        | table | moringa
+ public | django_migrations          | table | moringa
+ public | django_session             | table | moringa
+ public | hood_business              | table | moringa
+ public | hood_hoodmember            | table | moringa
+ public | hood_neighborhood          | table | moringa
+ public | hood_post                  | table | moringa
+ public | hood_profile               | table | moringa
+(15 rows)
+

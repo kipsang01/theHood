@@ -20,3 +20,9 @@ class newHoodForm(ModelForm):
     class Meta:
         model = Neighborhood
         fields = ('name','location','profile_pic')
+        
+class PostForm(ModelForm):
+    
+    class Meta:
+        model = Post
+        fields = ['content','image']
