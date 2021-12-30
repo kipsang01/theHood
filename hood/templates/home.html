@@ -2,9 +2,90 @@
 {% block content %}
 {% load static%}
  <div class="container-fluid m-0 p-0">
-     <div class="">
-        {{hood}} hood
-     </div>
-    
+     <div class="row">
+         <div class="col-lg-4">
+             <div class="sidebar" id="viewport">
+                    <!-- Sidebar -->
+                    <div id="sidebar">
+                      <header>
+                        <a href="#">{{hood.name}}</a>
+                      </header>
+                      <ul class="nav">
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-home"></i> Home
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-link"></i> Business
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-widgets"></i> Schools
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-calendar"></i> Hospitals 
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-settings"></i> Police station
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-comment-more"></i> Other
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    
+            
+             </div>
+         </div>
+         
+         <div class="col-lg-8">
+             <div class="heading">
+                 <h2>{{hood}}</h2>
+             </div>
+             <!-- Button trigger modal -->
+
+
+
+             <div class="posts">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+               Create new post
+              </button>
+                  <!-- Modal -->
+                    <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">New Post</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form data-url ="{% url 'new-post' %}" method="POST" enctype="multipart/form-data"  id ='postform'>
+                              {% csrf_token%}
+                              {{form}}
+                               <input type="submit" class="btn btn-primary btn-sm" >
+                            </form>
+                          
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                            <button type="button" class="btn btn-primary">Post</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 {{hood.posts   }}
+             </div>
+         </div>
+     </div>    
  </div>
 {% endblock%}

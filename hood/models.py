@@ -46,13 +46,13 @@ class HoodMember(models.Model):
 class Post(models.Model):
     image = CloudinaryField('image', blank=True)
     content = models.TextField( max_length=500)
-    hood = models.ForeignKey(Neighborhood,related_name='posts',on_delete=models.CASCADE)
     author = models.ForeignKey(User,related_name='posts', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
+    neighborhood = models.ForeignKey(Neighborhood,related_name='hoodposts',on_delete=models.CASCADE)
     
     
     def __str__(self):
-        return self.title
+        return self.content
     
     def save_post(self):
         self.save()

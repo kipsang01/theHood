@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'thehood.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': 'hood',
+           'NAME': 'hoody',
            'USER': 'moringa',
            'PASSWORD': 'czar',
            'HOST': '127.0.0.1',
@@ -144,4 +144,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'dashboard'

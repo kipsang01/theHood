@@ -1,4 +1,4 @@
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -29,13 +29,18 @@ def home(request):
     current_user = request.user
     profile = Profile.objects.filter(user=current_user).first()
     hood_group = HoodMember.objects.filter(member=current_user).first()
-    hood = hood_group.hood
-    posts =''
-    context = {
-        'hood':hood,
-        'posts':posts
-    }
-    return render(request,'home.html', context)
+    if hood_group is not None:
+        hood = hood_group.hood
+        posts =''
+        form = PostForm()
+        context = {
+            'hood':hood,
+            'posts':posts,
+            'form':form,
+        }
+        return render(request,'home.html', context)
+    else:
+        return redirect('dashboard')
 
 # Creating new Neighborhood
 @login_required(login_url='/accounts/login')
@@ -69,21 +74,22 @@ def join_hood(request,hood_id):
 # Creating newpost
 @login_required(login_url='/accounts/login')
 def create_post(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         current_user = request.user
-        hood = current_user.Profile.neigborhood
+        hood_group = HoodMember.objects.filter(member=current_user).first()
+        hood = hood_group.hood
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = current_user
-            post.hood = hood
+            post.neighborhood = hood
             post.save()
             messages.success(request,('Posted!'))
-        return HttpResponseRedirect(request.path_info)
-           
-    else:
-        form = PostForm() 
-    return render(request,'add_post.html', {'form':form})
+            message='posted successfully'
+            return JsonResponse({'success': message}, status=200)
+        else:
+            return JsonResponse({"error": form.errors}, status=400)
+    return JsonResponse({"error": ""}, status=400)
 
 # Post and details
 def post(request,post_id):
