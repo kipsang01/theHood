@@ -128,3 +128,13 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
+        
+        
+class Review(models.Model):
+    content = models.TextField(max_length=200)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+        return 'Review by {}'.format(self.author)
