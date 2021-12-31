@@ -84,6 +84,14 @@
                       </div>
                     </div>
                  {{hood.posts   }}
+
+                 {% for post in posts %}
+                 <div class="card">
+                   {{post.image.url}}
+                   <img src="{{post.image.url}}" alt="">
+                   {{post.content}}
+                 </div>
+                 {% endfor %}
              </div>
          </div>
      </div>    

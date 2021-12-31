@@ -31,7 +31,7 @@ def home(request):
     hood_group = HoodMember.objects.filter(member=current_user).first()
     if hood_group is not None:
         hood = hood_group.hood
-        posts =''
+        posts =Post.objects.filter(neighborhood =hood)
         form = PostForm()
         context = {
             'hood':hood,
@@ -86,10 +86,11 @@ def create_post(request):
             post.save()
             messages.success(request,('Posted!'))
             message='posted successfully'
-            return JsonResponse({'success': message}, status=200)
+            return JsonResponse({'error': False, 'message': message},status=200)
+    
         else:
-            return JsonResponse({"error": form.errors}, status=400)
-    return JsonResponse({"error": ""}, status=400)
+            return JsonResponse({'error': True, 'errors': form.errors},status=400)
+   
 
 # Post and details
 def post(request,post_id):
