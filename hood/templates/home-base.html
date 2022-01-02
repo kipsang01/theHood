@@ -1,0 +1,56 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static%}
+ <div class="container-fluid m-0 p-0">
+     <div class="row">
+         <div class="col-lg-4">
+             <div class="sidebar" id="viewport">
+                    <!-- Sidebar -->
+                    <div id="sidebar">
+                      <header>
+                        <a href="#">{{hood.name}}</a>
+                      </header>
+                      <ul class="nav">
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-home"></i> Home
+                          </a>
+                        </li>
+                        <li>
+                          <a href="/business">
+                            <i class="zmdi zmdi-link"></i> Business
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-widgets"></i> Schools
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-calendar"></i> Hospitals 
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-settings"></i> Police station
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-comment-more"></i> Other
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    
+            
+             </div>
+         </div>
+         
+         <div class="col-lg-8">
+            {% block home-content%}
+            {% endblock home-content%}
+           </div>    
+ </div>
+{% endblock%}

@@ -5,21 +5,19 @@
           <h2>{{hood}}</h2>
           {{hood.businesses}}
       </div>
-
-      <div class="posts">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Create new post
+        Add school
       </button>
           <!-- Modal -->
             <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">New Post</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">New school</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form data-url ="{% url 'new-post' %}" method="POST" enctype="multipart/form-data"  id ='postform'>
+                    <form data-url ="" method="POST" enctype="multipart/form-data"  id ='postform'>
                       {% csrf_token%}
                       {{form}}
                         <input type="submit" class="btn btn-primary btn-sm" >
@@ -33,15 +31,5 @@
                 </div>
               </div>
             </div>
-          {{hood.posts   }}
-
-          {% for post in posts %}
-          <div class="card">
-            {{post.image.url}}
-            <img src="{{post.image.url}}" alt="">
-            {{post.content}}
-          </div>
-          {% endfor %}
-      </div>
 
 {% endblock home-content%}

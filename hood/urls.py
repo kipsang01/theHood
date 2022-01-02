@@ -10,7 +10,8 @@ urlpatterns = [
   path('home/post/<post_id>', views.post, name='post'),  
   path('new-hood', views.new_hood, name='new-hood'),
   path('home/new-post', views.create_post, name='new-post'),   
-  path('join/<hood_id>', views.join_hood, name='join'),  
+  path('join/<hood_id>', views.join_hood, name='join'), 
+  path('business', views.business, name='business'),  
 ]
 
 if settings.DEBUG:

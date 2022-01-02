@@ -3,9 +3,9 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate,login,logout
-from .forms import RegisterUserForm,newHoodForm, PostForm
+from .forms import RegisterUserForm,newHoodForm, PostForm, BusinessForm
 
-from .models import Neighborhood, Post, Profile, HoodMember
+from .models import Neighborhood, Post, Profile, HoodMember,Business
 
 
 
@@ -98,7 +98,13 @@ def post(request,post_id):
     return render(request,'post.html')
 
 
-
+def business(request):
+    current_user = request.user
+    hood_group = HoodMember.objects.filter(member=current_user).first()
+    hood = hood_group.hood
+    businesses = Business.objects.filter(neighborhood =hood)
+    form = BusinessForm()
+    return render(request, 'business.html',{'form':form})
 
 
 

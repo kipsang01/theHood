@@ -82,7 +82,7 @@ class Business(models.Model):
     type = models.CharField(max_length=100)
     directions = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    neighborhood=models.ForeignKey(Neighborhood, related_name ='businesses', on_delete=models.CASCADE)
     contact = models.CharField(max_length=500)
     verified = models.BooleanField(default=False)    
  
