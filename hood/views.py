@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate,login,logout
 from .forms import RegisterUserForm,newHoodForm, PostForm, BusinessForm
 
-from .models import Neighborhood, Post, Profile, HoodMember,Business
+from .models import Neighborhood, Post, Profile, HoodMember,Business,Service
 
 
 
@@ -47,7 +47,6 @@ def home(request):
 def new_hood(request):
     if request.method == 'POST':
         current_user = request.user
-        profile = Profile.objects.filter(user=current_user).first()
         form = newHoodForm(request.POST, request.FILES)
         if form.is_valid():
             hood = form.save(commit=False)
@@ -106,6 +105,22 @@ def business(request):
     form = BusinessForm()
     return render(request, 'business.html',{'form':form})
 
+def hospital(request):
+    current_user = request.user
+    hood_group = HoodMember.objects.filter(member=current_user).first()
+    hood = hood_group.hood
+    businesses = Business.objects.filter(neighborhood =hood)
+    form = BusinessForm()
+    return render(request, 'hospitals.html',{'form':form})
+
+
+def school(request):
+    current_user = request.user
+    hood_group = HoodMember.objects.filter(member=current_user).first()
+    hood = hood_group.hood
+    businesses = Business.objects.filter(neighborhood =hood)
+    form = BusinessForm()
+    return render(request, 'schools.html',{'form':form})
 
 
 
