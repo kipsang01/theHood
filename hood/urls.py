@@ -12,6 +12,8 @@ urlpatterns = [
   path('home/new-post', views.create_post, name='new-post'),   
   path('join/<hood_id>', views.join_hood, name='join'), 
   path('business', views.business, name='business'),  
+  path('schools', views.school, name='schools'), 
+  path('hospitals', views.hospital, name='hospitals'), 
 ]
 
 if settings.DEBUG:

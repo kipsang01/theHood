@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate,login,logout
-from .forms import RegisterUserForm,newHoodForm, PostForm, BusinessForm
+from .forms import RegisterUserForm,newHoodForm, PostForm, BusinessForm,ServiceForm
 
 from .models import Neighborhood, Post, Profile, HoodMember,Business,Service
 
@@ -96,31 +96,68 @@ def post(request,post_id):
     post = get_object_or_404(Post,id=post_id)
     return render(request,'post.html')
 
-
+# businesses
 def business(request):
     current_user = request.user
     hood_group = HoodMember.objects.filter(member=current_user).first()
     hood = hood_group.hood
     businesses = Business.objects.filter(neighborhood =hood)
-    form = BusinessForm()
+    if request.method == 'POST':
+        form = BusinessForm(request.POST)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.owner = current_user
+            business.neighborhood = hood
+            business.save()
+            new_member = HoodMember(member=current_user,hood=hood)
+            new_member.save()
+            messages.success(request,('Business Added!'))
+            return redirect('business')
+    else:
+        form = BusinessForm()
     return render(request, 'business.html',{'form':form})
 
+#hospital
 def hospital(request):
     current_user = request.user
     hood_group = HoodMember.objects.filter(member=current_user).first()
     hood = hood_group.hood
-    businesses = Business.objects.filter(neighborhood =hood)
-    form = BusinessForm()
-    return render(request, 'hospitals.html',{'form':form})
+    hospitals = Service.objects.filter(type ='hospital')
+    if request.method == 'POST':
+        form = ServiceForm(request.POST)
+        if form.is_valid():
+            service = form.save(commit=False)
+            service.type = 'hospital'
+            service.neighborhood = hood
+            service.save()
+            new_member = HoodMember(member=current_user,hood=hood)
+            new_member.save()
+            messages.success(request,('Hospital added!'))
+            return redirect('hospital')
+    else:
+        form = ServiceForm()
+    return render(request, 'hospitals.html',{'form':form,'hospitals':hospitals })
 
-
+#school
 def school(request):
     current_user = request.user
     hood_group = HoodMember.objects.filter(member=current_user).first()
     hood = hood_group.hood
-    businesses = Business.objects.filter(neighborhood =hood)
-    form = BusinessForm()
-    return render(request, 'schools.html',{'form':form})
+    schools = Service.objects.filter(type ='school')
+    if request.method == 'POST':
+        form = ServiceForm(request.POST)
+        if form.is_valid():
+            service = form.save(commit=False)
+            service.type = 'school'
+            service.neighborhood = hood
+            service.save()
+            new_member = HoodMember(member=current_user,hood=hood)
+            new_member.save()
+            messages.success(request,('School added!'))
+            return redirect('school')
+    else:
+        form = ServiceForm()
+    return render(request, 'schools.html',{'form':form, 'schools':schools})
 
 
 

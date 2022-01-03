@@ -114,6 +114,7 @@ class Service(models.Model):
     name = models.CharField(max_length=200)
     type = models.CharField(max_length=200)
     description = models.TextField()
+    location = models.CharField(max_length=500,default=None)
     Neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
 
     

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import ModelForm
 from django.contrib.auth.models import User
-from .models import Post,Neighborhood,Business,Review
+from .models import Post,Neighborhood,Business,Review,Service
 
 
 class RegisterUserForm(UserCreationForm):
@@ -33,6 +33,12 @@ class BusinessForm(ModelForm):
         model = Business
         fields =['name','type','directions','contact']
         
+class ServiceForm(ModelForm):
+    
+    class Meta:
+        model = Service
+        fields = ['name', 'description','location']
+
 
 class ReviewForm(ModelForm):
      class Meta:
