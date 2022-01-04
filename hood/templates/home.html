@@ -1,13 +1,13 @@
 {% extends 'home-base.html'%}
 {% block home-content %}
 {% load static%}
+{% load crispy_forms_tags %}
       <div class="heading">
-          <h2>{{hood}}</h2>
-          {{hood.businesses}}
       </div>
 
       <div class="posts">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <img src="https://img.icons8.com/material/24/000000/plus-math--v5.png"/>
         Create new post
       </button>
           <!-- Modal -->
@@ -21,7 +21,7 @@
                   <div class="modal-body">
                     <form data-url ="{% url 'new-post' %}" method="POST" enctype="multipart/form-data"  id ='postform'>
                       {% csrf_token%}
-                      {{form}}
+                      {{form|crispy}}
                         <input type="submit" class="btn btn-primary btn-sm" >
                     </form>
                   
@@ -33,15 +33,17 @@
                 </div>
               </div>
             </div>
-          {{hood.posts   }}
-
-          {% for post in posts %}
-          <div class="card">
-            {{post.image.url}}
-            <img src="{{post.image.url}}" alt="">
-            {{post.content}}
-          </div>
-          {% endfor %}
+            {% if posts%}
+              {% for post in posts %}
+              <div class="card">
+                {{post.image.url}}
+                <img src="{{post.image.url}}" alt="">
+                {{post.content}}
+              </div>
+              {% endfor %}
+            {% else %}
+              <p>No posts</p>
+            {% endif %}
       </div>
 
 {% endblock home-content%}

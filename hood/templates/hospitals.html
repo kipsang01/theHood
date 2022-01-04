@@ -1,11 +1,13 @@
 {% extends 'home-base.html'%}
 {% block home-content %}
 {% load static%}
+{% load crispy_forms_tags %}
       <div class="heading">
           <h2>{{hood}}</h2>
           {{hood.businesses}}
       </div>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <img src="https://img.icons8.com/material/24/000000/plus-math--v5.png"/>
         Add hospital
       </button>
           <!-- Modal -->
@@ -17,9 +19,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form data-url ="" method="POST" enctype="multipart/form-data"  id ='postform'>
+                    <form data-url ="" method="POST" enctype="multipart/form-data"  id ='hospitalform'>
                       {% csrf_token%}
-                      {{form}}
+                      {{form|crispy}}
                         <input type="submit" class="btn btn-primary btn-sm" >
                     </form>
                   
@@ -31,5 +33,11 @@
                 </div>
               </div>
             </div>
-
+            {% if hospitals%}
+            {% for hospital in hospitals%}
+              {{hospital}}
+            {% endfor%}
+            {% else %}
+            <p>No Hospitals registered</p>
+            {% endif %}
 {% endblock home-content%}

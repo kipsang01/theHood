@@ -91,8 +91,6 @@ class Business(models.Model):
     def __str__(self):
         return self.name
     
-    def save(self):
-        self.save()
     
     def delete(self):
         self.delete()
