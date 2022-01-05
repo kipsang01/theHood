@@ -61,7 +61,7 @@ def new_hood(request):
     return render(request,'new-hood.html', {'form':form})
 
 
-# Joinin a neighborhood
+# Join a neighborhood
 @login_required(login_url='/accounts/login')
 def join_hood(request,hood_id):
     hood = get_object_or_404(Neighborhood,id=hood_id)
@@ -70,6 +70,17 @@ def join_hood(request,hood_id):
     messages.success(request,("You've joined the group"))
     return redirect('home')
 
+
+# Leave neighborhood
+def leave_hood(request,hood_id):
+    current_user = request.user
+    hood = get_object_or_404(Neighborhood,id=hood_id)
+    membership = HoodMember(member = current_user, hood= hood)
+    membership.delete()
+    return redirect('dashboard')
+    
+    
+    
 # Creating newpost
 @login_required(login_url='/accounts/login')
 def create_post(request):
