@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate,login,logout
+from django.contrib.auth.models import User
 from .forms import RegisterUserForm,newHoodForm, PostForm, BusinessForm,ServiceForm
 
 from .models import Neighborhood, Post, Profile, HoodMember,Business,Service
@@ -191,4 +192,24 @@ def register_user(request):
         form = RegisterUserForm()
         
     return render(request,'registration/registration_form.html', {'form':form})
+
+
+
+# Page for profile
+def user_profile(request,username):
+    user = User.objects.filter(username=username).first()
+    if user == request.user:
+        return redirect('my_profile')
+    profile = Profile.objects.filter(user=user).first()
+    posts = Post.objects.filter(author=user)
+    return render(request, 'userprofile.html', {'profile':profile,'posts':posts})
+
+
+#logged in user profile
+@login_required(login_url='/accounts/login')
+def my_profile(request):
+    user = request.user
+    user = User.objects.filter(username=user.username).first()
+    posts = Post.objects.filter(author=user)
+    return render(request, 'profile.html', {'user': user,'posts':posts})
 

@@ -1,0 +1,132 @@
+<!-- <div class="row">
+    <div class="col-lg-4">
+        <div class="sidebar" id="viewport">
+               
+               <div id="sidebar">
+                 <header>
+                   <a href="#">{{hood.name}}</a>
+                 </header>
+                 <ul class="nav">
+                   <li>
+                     <a href="/home">
+                       <i class="zmdi zmdi-home"></i> Home
+                     </a>
+                   </li>
+                   <li>
+                     <a href="/business">
+                       <i class="zmdi zmdi-link"></i> Business
+                     </a>
+                   </li>
+                   <li>
+                     <a href="schools">
+                       <i class="zmdi zmdi-widgets"></i> Schools
+                     </a>
+                   </li>
+                   <li>
+                     <a href="/hospitals">
+                       <i class="zmdi zmdi-hospital"></i> Hospitals 
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#">
+                       <i class="zmdi zmdi-settings"></i> Police station
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#">
+                       <i class="zmdi zmdi-comment-more"></i> Other
+                     </a>
+                   </li>
+                 </ul>
+               </div>
+               
+       
+        </div>
+    </div>
+    
+    <div class="col-lg-8">
+      </div>     -->
+
+
+ <script type="text/javascript">
+    $(document).ready(function(){
+        $(".sidebar-btn").click(function(){
+            $(".wrapper").toggleClass("collapse");
+        });
+    });
+    </script>
+
+
+
+
+    /* Toggle Styles */
+  
+    #viewport {
+      padding-left: 250px;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+    }
+    
+    #content {
+      width: 100%;
+      position: relative;
+      margin-right: 0;
+    }
+    
+    /* Sidebar Styles */
+    
+    #sidebar {
+      z-index: 1000;
+      position: fixed;
+      left: 250px;
+      width: 250px;
+      height: 100%;
+      margin-left: -250px;
+      overflow-y: auto;
+      background: #37474F;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+    }
+    
+    #sidebar header {
+      background-color: #263238;
+      font-size: 20px;
+      line-height: 52px;
+      text-align: center;
+    }
+    
+    #sidebar header a {
+      color: #fff;
+      display: block;
+      text-decoration: none;
+    }
+    
+    #sidebar header a:hover {
+      color: #fff;
+    }
+    
+  
+    
+    #sidebar .nav a{
+      background: none;
+      border-bottom: 1px solid #455A64;
+      color: #CFD8DC;
+      font-size: 14px;
+      padding: 16px 24px;
+    }
+    
+    #sidebar .nav a:hover{
+      background: none;
+      color: #ECEFF1;
+    }
+    
+    #sidebar .nav a i{
+      margin-right: 16px;
+    }
+
+    {% block home-content%}
+    {% endblock home-content%}

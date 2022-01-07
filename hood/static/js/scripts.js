@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    $(".sidebar-btn").click(function(){
+      $(".wrapper").toggleClass("collapsee");
+    });
+
+    $('.nav_btn').click(function(){
+      $('.mobile_nav_items').toggleClass('active');
+    });
+
     $('#postform').submit(function(event){
       event.preventDefault()
       var formData = $(this).serialize();
