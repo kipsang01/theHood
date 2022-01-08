@@ -202,7 +202,7 @@ def user_profile(request,username):
         return redirect('my_profile')
     profile = Profile.objects.filter(user=user).first()
     posts = Post.objects.filter(author=user)
-    return render(request, 'userprofile.html', {'profile':profile,'posts':posts})
+    return render(request, 'profiles/userprofile.html', {'profile':profile,'posts':posts})
 
 
 #logged in user profile
@@ -211,5 +211,5 @@ def my_profile(request):
     user = request.user
     user = User.objects.filter(username=user.username).first()
     posts = Post.objects.filter(author=user)
-    return render(request, 'profile.html', {'user': user,'posts':posts})
+    return render(request, 'profiles/profile.html', {'user': user,'posts':posts})
 

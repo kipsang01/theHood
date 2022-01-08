@@ -27,7 +27,7 @@
         </a>
       
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <span><a class="dropdown-item text-primary" href="#">Profile</a></span>
+          <span><a class="dropdown-item text-primary" href="/myprofile/">Profile</a></span>
           <span><a class="dropdown-item text-danger" href="accounts/logout/">Logout</a></span>
         </div>
     </div>
@@ -65,13 +65,9 @@
 <!--sidebar end-->
 
 <div class="content">
-  <div class="col-lg-9">
-    {% block home-content%}
-    {% endblock home-content%}
-  </div>
-  <div class="col-lg-3">
-    hood details
-  </div>
+  {% block home-content%}
+  {% endblock home-content%}
+  
 </div>
 </div>
       

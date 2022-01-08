@@ -17,6 +17,8 @@ urlpatterns = [
   path('hospitals', views.hospital, name='hospitals'), 
   path('myprofile/', views.my_profile, name='my_profile'),
   path('profile/<username>', views.user_profile, name='profile'),
+  path('leave', views.leave_hood, name='Leave'),
+  
     
 ]
 

@@ -37,7 +37,7 @@ class Neighborhood(models.Model):
 
 class HoodMember(models.Model):
     member = models.ForeignKey(User,on_delete=models.CASCADE)
-    hood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
+    hood = models.ForeignKey(Neighborhood, related_name='members',on_delete=models.CASCADE)
     
     
     def __str__(self):

@@ -3,11 +3,14 @@
 {% load static%}
 {% load crispy_forms_tags %}
 
+<div class="row">
+    <div class="col-lg-9">
       <div class="posts">
       <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <img src="https://img.icons8.com/material/24/000000/plus-math--v5.png"/>
         Create new post
       </button>
+      <hr>
           <!-- Modal -->
             <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -34,15 +37,38 @@
              <!-- Modal ends-->
             {% if posts%}
               {% for post in posts %}
-              <div class="card">
-                {{post.image.url}}
-                <img src="{{post.image.url}}" alt="">
-                {{post.content}}
+              <div class="row">
+                <!-- posts -->
+                <div class="col-lg-2">
+                  <div class="poster-profile">
+                    {% if post.author.profile_pic%}
+                    <img src="{{post.author.profile_pic.url}}" alt="poster-profile">
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="col-lg-10">
+                  <div class="post-header">{{post.author}}. {{post.date_posted}}</div>
+                  <div class="post-content">{{post.content}}</div>
+                  {% if post.image %}
+                  <div class="post-img"> <img src="{{ post.image.url}}" alt=""></div>
+                  {% endif %}
+                  <hr>
+                </div>
               </div>
               {% endfor %}
             {% else %}
               <p>No posts</p>
             {% endif %}
       </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="hood-details position-fixed">
+        Neighborhood-hood details
+        <span>
+        {{hood.members.count}}</span> members
+        <a href="{% url 'Leave'%}"><button class="btn btn-danger">Leave </button></a>
+      </div>
+    </div>
+</div>
 
 {% endblock home-content%}
