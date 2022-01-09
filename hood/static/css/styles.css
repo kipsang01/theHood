@@ -19,6 +19,11 @@
 .hood-details{
   border-left: 6px solid  #19B3D3;;
 }
+.business{
+  background-color:#dce6f5;
+  height: 100vh;
+  margin-right: 20px;
+}
 .container-fluid{
   margin: 0;
   padding: 0;

@@ -147,6 +147,7 @@ def hospital(request):
     current_user = request.user
     hood_group = HoodMember.objects.filter(member=current_user).first()
     hood = hood_group.hood
+    creator = hood.creator
     hospitals = Service.objects.filter(type ='hospital',Neighborhood=hood)
     if request.method == 'POST':
         form = ServiceForm(request.POST)
@@ -161,13 +162,14 @@ def hospital(request):
             return redirect('hospitals')
     else:
         form = ServiceForm()
-    return render(request, 'hospitals.html',{'form':form,'hospitals':hospitals })
+    return render(request, 'hospitals.html',{'form':form,'hospitals':hospitals, 'creator':creator })
 
 #school
 def school(request):
     current_user = request.user
     hood_group = HoodMember.objects.filter(member=current_user).first()
     hood = hood_group.hood
+    creator = hood.creator
     schools = Service.objects.filter(type ='school',Neighborhood=hood)
     if request.method == 'POST':
         form = ServiceForm(request.POST)
@@ -182,7 +184,7 @@ def school(request):
             return redirect('schools')
     else:
         form = ServiceForm()
-    return render(request, 'schools.html',{'form':form, 'schools':schools})
+    return render(request, 'schools.html',{'form':form, 'schools':schools, 'creator':creator})
 
 
 
