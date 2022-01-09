@@ -44,7 +44,7 @@ class HoodMember(models.Model):
         return '{} in {}'.format(self.member, self.hood)
     
 class Post(models.Model):
-    image = CloudinaryField('image')
+    image = CloudinaryField('image', null=True,blank =True)
     content = models.TextField( max_length=500)
     author = models.ForeignKey(User,related_name='posts', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)

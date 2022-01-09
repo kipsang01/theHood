@@ -7,6 +7,18 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.icon-profile{
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+.post-image{
+  height: 300px;
+  width: 300px;
+}
+.hood-details{
+  border-left: 6px solid  #19B3D3;;
+}
 .container-fluid{
   margin: 0;
   padding: 0;
@@ -269,3 +281,4 @@ label #sidebar_btn:hover{
     display: block;
   }
 }
+

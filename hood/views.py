@@ -28,20 +28,33 @@ def dashboard(request):
 # Home posts and details
 def home(request):
     current_user = request.user
-    profile = Profile.objects.filter(user=current_user).first()
-    hood_group = HoodMember.objects.filter(member=current_user).first()
-    if hood_group is not None:
+    if request.method == "POST":
+        hood_group = HoodMember.objects.filter(member=current_user).first()
         hood = hood_group.hood
-        posts =Post.objects.filter(neighborhood =hood)
-        form = PostForm()
-        context = {
-            'hood':hood,
-            'posts':posts,
-            'form':form,
-        }
-        return render(request,'home.html', context)
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = current_user
+            post.neighborhood = hood
+            post.save()
+            messages.success(request,('Posted!'))
+            return redirect('home')
     else:
-        return redirect('dashboard')
+        hood_group = HoodMember.objects.filter(member=current_user).first()
+        if hood_group is not None:
+            hood = hood_group.hood
+            posts =Post.objects.filter(neighborhood =hood)
+            form = PostForm()
+            context = {
+                'hood':hood,
+                'posts':posts,
+                'form':form,
+            }
+            return render(request,'home.html', context)
+        else:
+            return redirect('dashboard')
+    
+    
 
 # Creating new Neighborhood
 @login_required(login_url='/accounts/login')
@@ -97,7 +110,7 @@ def create_post(request):
             post.save()
             messages.success(request,('Posted!'))
             message='posted successfully'
-            return JsonResponse({'error': False, 'message': message},status=200)
+            return redirect('home')
     
         else:
             return JsonResponse({'error': True, 'errors': form.errors},status=400)

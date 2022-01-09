@@ -7,7 +7,7 @@ $(document).ready(function(){
       $('.mobile_nav_items').toggleClass('active');
     });
 
-    $('#postform').submit(function(event){
+    $('#postformm').submit(function(event){
       event.preventDefault()
       var formData = $(this).serialize();
       console.log(formData)
