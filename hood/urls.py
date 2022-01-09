@@ -18,6 +18,7 @@ urlpatterns = [
   path('myprofile/', views.my_profile, name='my_profile'),
   path('profile/<username>', views.user_profile, name='profile'),
   path('leave', views.leave_hood, name='Leave'),
+  path('search/', views.search_hood, name='search_hood'),
   
     
 ]
