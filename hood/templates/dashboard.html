@@ -2,31 +2,66 @@
 {% block content %}
 {% load static%}
  <div class="container-fluid m-0 p-0">
-     {% if hoods%}
-     <div class="displays">
-
-       {% for hood in hoods%}
-       <div class="card text-center w-50 m-auto" style="background-image: url('{{ hood.profile_pic.url}}'); background-size:cover;">
-        <div class="card-body">
-          <h5 class="card-title">{{hood.name}}</h5>
-          <p class="card-text"></p>
-          <a href="{% url 'join' hood.id %}" class="btn btn-primary">Join</a>
+   <div class="navbar ">
+    <header>
+      <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>the<span>hood</span></h3>
+      </div>
+      <div class="right_area">
+        <form class="" role="search"  action="" >
+            {% csrf_token %}
+            <div class="input-group ">
+                    <input type="search" class="form-control" name='search' placeholder="Search" aria-label="search" aria-describedby="basic-addon1">
+                    <div class="input-group-append">
+                        <button class="input-group-text" type="submit" ><i class="fas fa-search"></i></button>
+                    </div>
+            </div>
+        </form>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              {{user.username}}
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <span><a class="dropdown-item text-primary" href="/myprofile/">Profile</a></span>
+              <span><a class="dropdown-item text-danger" href="accounts/logout/">Logout</a></span>
+            </div>
         </div>
-        <div class="card-footer text-muted">
-          Created:{{hood.date_created}}
+      </div>
+    </header>
+   </div>
+   {% block dash-content%}
+   <div class="header mb-3 text-center " style='height: 30px; margin: top 300px;'>
+      <a href="{% url 'new-hood'%}">  <button class="btn btn-primary"><img src="https://img.icons8.com/material/24/000000/plus-math--v5.png"/>
+       Create New</button></a>
+   </div>
+     {% if hoods%}
+<div class="card-deck m-2">
+       {% for hood in hoods%}
+       <div class="card text-center " >
+        <div class="card-body" style="background-image: url('{{ hood.profile_pic.url}}'); background-size:cover; height:300px">
+        </div>
+        <div class="card-footer">
+          <h3 class="card-title">{{hood.name}}</h3>
+          <p class="card-text"></p>
+          Created:{{hood.date_created|date:"M d, Y"}}
+          <button class="btn btn-primary"> <a href="{% url 'join' hood.id %}">Join</a></button>
         </div>
         
       </div>
        {% endfor %}
-       <a href="{% url 'new-hood'%}"> create one</a>
      </div>
      {% else %}
      <div class="no-hoods">
         <p>There are no hoods at the moment</p>
-        <a href="{% url 'new-hood'%}"> create one</a>
+       
      </div>
     
      {% endif%}
+    {%endblock %}
  </div>
  
 {% endblock%}
