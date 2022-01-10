@@ -1,0 +1,1 @@
+web: gunicorn thehood.wsgi --log-file -
