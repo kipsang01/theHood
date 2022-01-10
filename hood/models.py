@@ -17,7 +17,7 @@ class Neighborhood(models.Model):
         return self.name
     
     
-    
+   
     def delete_hood(self):
         self.delete()
 
