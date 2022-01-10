@@ -3,31 +3,15 @@
 {%load crispy_forms_tags %} 
 <div class="container-fluid mt-5 pt-5 mb-5">
     <header>
-        <label for="check">
-          <i class="fas fa-bars" id="sidebar_btn"></i>
-        </label>
         <div class="left_area">
           <h3>the<span>hood</span></h3>
         </div>
         <div class="right_area">
-          <form class="" role="search"  action="" >
-              {% csrf_token %}
-              <div class="input-group ">
-                      <input type="search" class="form-control" name='search' placeholder="Search by Location" aria-label="search" aria-describedby="basic-addon1">
-                      <div class="input-group-append">
-                          <button class="input-group-text" type="submit" ><i class="fas fa-search"></i></button>
-                      </div>
-              </div>
-          </form>
-          <div class="dropdown">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                {{user.username}}
-              </a>
+          
+          <div class="nav-links">
+                <a href="/accounts/register/"> <span class=" acc">Register</span></a>/
+                <a href="/admin/"><span class="acc">Switch to admin </span></a>
             
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <span><a class="dropdown-item text-primary" href="/myprofile/">Profile</a></span>
-                <span><a class="dropdown-item text-danger" href="accounts/logout/">Logout</a></span>
-              </div>
           </div>
         </div>
       </header>

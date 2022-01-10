@@ -6,6 +6,26 @@
     background-position: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-size:32px;
+}
+.image-cov img{
+  height: 300px;
+  width: 500px;
+}
+.nav-links a {
+  text-decoration: none
+}
+.acc{
+  color:#fff
+}
+.acc:hover{
+  color: #19B3D3;
+  text-decoration: none;
+}
+.name{
+  color:#19B3D3;
 }
 .icon-profile{
   border-radius: 50%;
@@ -17,7 +37,7 @@
   width: 300px;
 }
 .hood-details{
-  border-left: 6px solid  #19B3D3;;
+  border-left: 6px solid  #19B3D3;
 }
 .business{
   background-color:#dce6f5;
