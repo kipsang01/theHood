@@ -41,6 +41,7 @@ def search_hood(request):
         return render(request, 'search.html',{"message":message})
 
 # Home posts and details
+@login_required(login_url='/accounts/login/')
 def home(request):
     current_user = request.user
     if request.method == "POST":
@@ -72,7 +73,7 @@ def home(request):
     
 
 # Creating new Neighborhood
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def new_hood(request):
     if request.method == 'POST':
         current_user = request.user
@@ -91,16 +92,21 @@ def new_hood(request):
 
 
 # Join a neighborhood
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def join_hood(request,hood_id):
     hood = get_object_or_404(Neighborhood,id=hood_id)
-    new_member = HoodMember(member = request.user, hood= hood)
-    new_member.save()
-    messages.success(request,("You've joined the group"))
+    member = HoodMember.objects.filter(Neighborhood =hood,member =request.user)
+    if member is not None:
+        new_member = HoodMember(member = request.user, hood= hood)
+        new_member.save()
+        messages.success(request,("You've joined the group"))
+    else:
+        messages.success(request,("You're already a member"))
     return redirect('home')
 
 
 # Leave neighborhood
+@login_required(login_url='/accounts/login/')
 def leave_hood(request,hood_id):
     current_user = request.user
     hood = get_object_or_404(Neighborhood,id=hood_id)
@@ -111,7 +117,7 @@ def leave_hood(request,hood_id):
     
     
 # Creating newpost
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def create_post(request):
     if request.method == "POST":
         current_user = request.user
@@ -157,6 +163,20 @@ def business(request):
         form = BusinessForm()
     return render(request, 'business.html',{'form':form,'businesses':businesses })
 
+# Search business
+def search_business(request):
+    if 'search' in request.GET and request.GET["search"]:
+        search_term = request.GET.get("search")
+        print(search_term)
+        businesses = Business.search_business(search_term)
+        message = f"{search_term}"
+        
+
+        return render(request, 'search_business.html',{'businesses':businesses,'message':message})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
 #hospital
 def hospital(request):
     current_user = request.user
@@ -236,7 +256,7 @@ def user_profile(request,username):
 
 
 #logged in user profile
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def my_profile(request):
     user = request.user
     user = User.objects.filter(username=user.username).first()

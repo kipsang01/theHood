@@ -19,6 +19,7 @@ urlpatterns = [
   path('profile/<username>', views.user_profile, name='profile'),
   path('leave', views.leave_hood, name='Leave'),
   path('search/', views.search_hood, name='search_hood'),
+  path('search-business/', views.search_business, name='search_business'),
   
     
 ]

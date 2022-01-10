@@ -1,15 +1,45 @@
 {% extends 'base.html'%}
 {% block content %}
 {%load crispy_forms_tags %} 
-<div class="container">
-    <div class="text-center mt-3"> <h2 style="font-size :38px; font: weight 800px;">Sign Up</h2></div>
+<div class="container-fluid" style = "background-color:#dce6f5; margin-bottom:50px;">
+    <header>
+        <label for="check">
+          <i class="fas fa-bars" id="sidebar_btn"></i>
+        </label>
+        <div class="left_area">
+          <h3>the<span>hood</span></h3>
+        </div>
+        <div class="right_area">
+          <form class="" role="search"  action="" >
+              {% csrf_token %}
+              <div class="input-group ">
+                      <input type="search" class="form-control" name='search' placeholder="Search by Location" aria-label="search" aria-describedby="basic-addon1">
+                      <div class="input-group-append">
+                          <button class="input-group-text" type="submit" ><i class="fas fa-search"></i></button>
+                      </div>
+              </div>
+          </form>
+          <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                {{user.username}}
+              </a>
+            
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <span><a class="dropdown-item text-primary" href="/myprofile/">Profile</a></span>
+                <span><a class="dropdown-item text-danger" href="accounts/logout/">Logout</a></span>
+              </div>
+          </div>
+        </div>
+      </header>
+      <!--header area end-->
+    <div class="text-center mt-5 pt-5"> <h2 style="font-size :38px; font: weight 800px; margin-top: 30px">Sign Up</h2></div>
     <hr class=" m-auto w-50">
     <div class="postform w-50 mt-3 m-auto shadow p-3 mb-5 bg-body rounded">
         <form action="" method='POST' enctype="multipart/form-data" >
             {% csrf_token%}
             {{form|crispy}}
             <div class="form-group m-3">
-                <input type="submit" class="btn btn-primary btn-sm" value="Sign Up" >
+                <input type="submit" class="btn btn-primary" value="Sign Up" >
             </div>
         </form>
     </div>
