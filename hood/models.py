@@ -18,11 +18,12 @@ class Neighborhood(models.Model):
     
     
     
-    def delete(self):
+    def delete_hood(self):
         self.delete()
 
-    def edit_name(self,name):
-        self.name = name
+    def update_hood(self,value):
+        self.name = value
+        self.save()
         
     @classmethod
     def all_hoods(self):
@@ -33,6 +34,7 @@ class Neighborhood(models.Model):
     def search_hood(self,search_name):
         hoods = Neighborhood.objects.filter(location__icontains=search_name) 
         return hoods
+    
 
 
 class HoodMember(models.Model):

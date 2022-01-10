@@ -19,18 +19,16 @@
                     <h5 class="modal-title" id="staticBackdropLabel">New Post</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body">
-                    <form action="home/new-post" method="POST" enctype="multipart/form-data"  id ='postform'>
-                      {% csrf_token%}
-                      {{form|crispy}}
-                        <input type="submit" class="btn btn-primary btn-sm" >
-                    </form>
-                  
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
-                    <button type="button" class="btn btn-primary">Post</button>
-                  </div>
+                  <form action="home/new-post" method="POST" enctype="multipart/form-data"  id ='postform'>
+                    {% csrf_token%}
+                    <div class="modal-body">
+                        {{form|crispy}}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                      <button type="submit" class="btn btn-primary">Post</button>
+                    </div>
+                </form>
                 </div>
               </div>
             </div>
