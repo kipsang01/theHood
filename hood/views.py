@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate,login,logout
 from django.contrib.auth.models import User
-from .forms import RegisterUserForm,newHoodForm, PostForm, BusinessForm,ServiceForm
+from .forms import RegisterUserForm,newHoodForm, PostForm, BusinessForm,ServiceForm,ProfileForm
 
 from .models import Neighborhood, Post, Profile, HoodMember,Business,Service
 
@@ -259,7 +259,16 @@ def user_profile(request,username):
 @login_required(login_url='/accounts/login/')
 def my_profile(request):
     user = request.user
-    user = User.objects.filter(username=user.username).first()
-    posts = Post.objects.filter(author=user)
-    return render(request, 'profiles/profile.html', {'user': user,'posts':posts})
-
+    profile = get_object_or_404(Profile,user=user)
+    if request ==' POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            profileform = form.save(commit=False)
+            profileform.user = user
+            profileform.save()
+            messages.success(request,('Update saved'))
+        return redirect('my_profile')
+    else:
+        posts = Post.objects.filter(author=user) 
+        form = ProfileForm() 
+        return render(request, 'profiles/profile.html', {'user': user,'posts':posts,'form':form})

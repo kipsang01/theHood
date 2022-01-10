@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import ModelForm
 from django.contrib.auth.models import User
-from .models import Post,Neighborhood,Business,Review,Service
+from .models import Post,Neighborhood,Business,Review,Service,Profile
 
 
 class RegisterUserForm(UserCreationForm):
@@ -44,3 +44,10 @@ class ReviewForm(ModelForm):
      class Meta:
          model = Review
          fields =['content']
+         
+        
+class ProfileForm(ModelForm):
+    
+    class Meta:
+        model = Profile
+        fields = ['profile_pic','about']
